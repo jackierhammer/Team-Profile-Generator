@@ -9,34 +9,45 @@ const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
 const Manager = require("./lib/Manager.js");
 
-inquirer
-  .prompt([
-    {
-      type: 'input',
-      name: 'managerName',
-      message: 'Please tell me the name of your team manager.',
-    },
-    {
-      type: 'input',
-      name: 'managerID',
-      message: 'Please type the employee id of your team manager.',
-    },
-    {
-      type: 'input',
-      name: 'managerEmail',
-      message: 'Please type the email of your team manager.',
-    },
-    {
-      type: 'input',
-      name: 'managerOffice',
-      message: 'Please type the office number of your team manager.',
-    }
-  ])
-  .then((data) => {
-    const teamManager = new Manager(`${data.managerName}`, `${data.managerID}`, `${data.managerEmail}`, `${data.managerOffice}`);
-  });
+let employeeArray = [];
 
-console.log(teamManager);
+const createManager = function () {
+    inquirer
+    .prompt([
+        {
+        type: 'input',
+        name: 'managerName',
+        message: 'Please tell me the name of your team manager.',
+        },
+        {
+        type: 'input',
+        name: 'managerID',
+        message: 'Please type the employee id of your team manager.',
+        },
+        {
+        type: 'input',
+        name: 'managerEmail',
+        message: 'Please type the email of your team manager.',
+        },
+        {
+        type: 'input',
+        name: 'managerOffice',
+        message: 'Please type the office number of your team manager.',
+        },
+    ])
+    .then((data) => {
+        const teamManager = new Manager(
+            `${data.managerName}`, 
+            parseInt(`${data.managerID}`), 
+            `${data.managerEmail}`, 
+            parseInt(`${data.managerOffice}`)
+        );
+        employeeArray.push(teamManager);
+        console.log(employeeArray);
+    });
+};
+createManager();
+
 
 // fs.writeFile('./dist/index.html', template(data), (err) =>
 //   err ? console.log(err) : console.log('Your webpage has been generated.')
