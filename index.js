@@ -160,7 +160,7 @@ async function askQuestions() {
             newEngineer(data);
         });
     };
-    const garbage = await writeHTMLFile(createHTML(employeeArray,employeeCount));
+    const write = await writeHTMLFile(createHTML(employeeArray,employeeCount));
 };
 
 main();
