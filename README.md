@@ -23,6 +23,8 @@ After cloning the respository, run "npm i" in the terminal to install the conten
     
 After installing the necessary tools, run node index.js in the terminal from the project directory. Follow the prompts that appear in the terminal.
 
+[Walkthrough Video](https://drive.google.com/file/d/1J3oJJGeufBkJJJb0gA4_1an5KzGLkLpF/view)
+
 ## Contributing
 
 This project is not accepting contributions at this time.
