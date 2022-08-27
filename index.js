@@ -1,8 +1,8 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-// Imports the function that creates the README file from template.js
-const template = require('./src/template.js');
+// Imports the function that creates the html file from template.js
+const createHTML = require('./src/template.js');
 
 // Imports the class constructors for Engineer, Intern, and Manager
 const Engineer = require("./lib/Engineer.js");
@@ -126,6 +126,12 @@ const employeeCounter = [
     }
 ];
 
+function writeHTMLFile(content) {
+    fs.writeFile('./dist/index.html', content, (err) =>
+        err ? console.log(err) : console.log('Your webpage has been generated.')
+    );
+}
+
 // main function gets the number of interns and engineers that inquirer needs to gather user input for
 async function main() {
     const askCount = await inquirer.prompt(employeeCounter)
@@ -154,12 +160,9 @@ async function askQuestions() {
             newEngineer(data);
         });
     };
-    
-}
+    const garbage = await writeHTMLFile(createHTML(employeeArray,employeeCount));
+};
 
 main();
 
-// fs.writeFile('./dist/index.html', template(data), (err) =>
-//   err ? console.log(err) : console.log('Your webpage has been generated.')
-// );
 
