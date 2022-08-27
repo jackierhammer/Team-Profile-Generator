@@ -9,7 +9,10 @@ const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
 const Manager = require("./lib/Manager.js");
 
+// employeeArray holds all of the employee objects created
 let employeeArray = [];
+// employeeCount holds the number of interns and number of engineers provided by the user
+let employeeCount = [];
 
 const managerQuestions = [
     {
@@ -34,6 +37,16 @@ const managerQuestions = [
     },
 ];
 
+function newManager(data) {
+    const teamManager = new Manager(
+    `${data.managerName}`, 
+    parseInt(`${data.managerID}`), 
+    `${data.managerEmail}`, 
+    parseInt(`${data.managerOffice}`)
+    );
+    employeeArray.push(teamManager);
+};
+
 const engineerQuestions = [
     {
     type: 'input',
@@ -56,6 +69,16 @@ const engineerQuestions = [
     message: 'Please type the github username of this engineer.',
     },
 ];
+
+function newEngineer(data) {
+    const teamEngineer = new Engineer(
+    `${data.engineerName}`, 
+    parseInt(`${data.engineerID}`), 
+    `${data.engineerEmail}`, 
+    `${data.github}`
+    );
+    employeeArray.push(teamEngineer);
+};
 
 const internQuestions = [
     {
@@ -80,32 +103,61 @@ const internQuestions = [
     },
 ];
 
-async function main() {
-    const manager = await inquirer.prompt(managerQuestions)
-    .then((data) => {
-        const teamManager = new Manager(
-            `${data.managerName}`, 
-            parseInt(`${data.managerID}`), 
-            `${data.managerEmail}`, 
-            parseInt(`${data.managerOffice}`)
-        );
-        employeeArray.push(teamManager);
-    });
-    const engineer = await inquirer.prompt(engineerQuestions)
-    .then((data) => {
-        const newEngineer = new Engineer(
-            `${data.engineerName}`, 
-            parseInt(`${data.engineerID}`), 
-            `${data.engineerEmail}`, 
-            `${data.github}`
-        );
-        employeeArray.push(newEngineer);
-        console.log(typeof employeeArray[0]);
-    });
+function newIntern(data) {
+    const teamIntern = new Intern(
+    `${data.internName}`, 
+    parseInt(`${data.internID}`), 
+    `${data.internEmail}`, 
+    `${data.school}`
+    );
+    employeeArray.push(teamIntern);
 };
 
-main();
+const employeeCounter = [
+    {
+        type: 'input',
+        name: 'internCount',
+        message: 'How many interns are there?',
+    },
+    {
+    type: 'input',
+    name: 'engineerCount',
+    message: 'How many engineers are there?',
+    }
+];
 
+// main function gets the number of interns and engineers that inquirer needs to gather user input for
+async function main() {
+    const askCount = await inquirer.prompt(employeeCounter)
+    .then((data) => {
+        employeeCount.push(parseInt(data.internCount));
+        employeeCount.push(parseInt(data.engineerCount));
+    });
+    const askQ = await askQuestions();
+};
+
+// askQuestions function asks the appropriate number of questions for manager, interns, and engineers and then runs object creating functions
+async function askQuestions() {
+    const managerAsk = await inquirer.prompt(managerQuestions)
+    .then((data) => {
+        newManager(data);
+    });
+    for (let i = 0; i < employeeCount[0]; i++) {
+        const internAsk = await inquirer.prompt(internQuestions)
+        .then((data) => {
+            newIntern(data);
+        });
+    };
+    for (let i = 0; i < employeeCount[1]; i++) {
+        const engineerAsk = await inquirer.prompt(engineerQuestions)
+        .then((data) => {
+            newEngineer(data);
+        });
+    };
+    
+}
+
+main();
 
 // fs.writeFile('./dist/index.html', template(data), (err) =>
 //   err ? console.log(err) : console.log('Your webpage has been generated.')
