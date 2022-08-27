@@ -42,7 +42,7 @@ function internCard(intern) {
     <h2>Intern: ${intern.name}</h2>
     <p>ID: ${intern.id}</p>
     <p>Email: <a href="mailto:${intern.email}">${intern.email}</a></p>
-    <p>Schhol: ${intern.school}</p>
+    <p>School: ${intern.school}</p>
 </div>
 `
 };
