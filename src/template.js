@@ -11,10 +11,10 @@ function startHTML() {
     
 <body>
     <header>
-        <h1>Team Profiles</h1>
+        <h1 class="title-card">Team Profiles</h1>
     </header>
 
-    <main>
+    <main class="container">
 `};
 
 function endHTML() {
@@ -27,33 +27,33 @@ function endHTML() {
 
 function managerCard(manager) {
     return`
-<div>
-    <h2>${manager.name}</h2>
-    <p>${manager.id}</p>
-    <p>${manager.email}</p>
-    <p>${manager.officeNumber}</p>
+<div class="card">
+    <h2>Manager: ${manager.name}</h2>
+    <p>ID: ${manager.id}</p>
+    <p>Email: <a href="mailto:${manager.email}">${manager.email}</a></p>
+    <p>Office Number: ${manager.officeNumber}</p>
 </div>
 `
 };
 
 function internCard(intern) {
     return`
-<div>
-    <h2>${intern.name}</h2>
-    <p>${intern.id}</p>
-    <p>${intern.email}</p>
-    <p>${intern.school}</p>
+<div class="card">
+    <h2>Intern: ${intern.name}</h2>
+    <p>ID: ${intern.id}</p>
+    <p>Email: <a href="mailto:${intern.email}">${intern.email}</a></p>
+    <p>Schhol: ${intern.school}</p>
 </div>
 `
 };
 
 function engineerCard(engineer) {
     return`
-<div>
-    <h2>${engineer.name}</h2>
-    <p>${engineer.id}</p>
-    <p>${engineer.email}</p>
-    <p>${engineer.github}</p>
+<div class="card">
+    <h2>Engineer: ${engineer.name}</h2>
+    <p>ID: ${engineer.id}</p>
+    <p>Email: <a href="mailto:${engineer.email}">${engineer.email}</a></p>
+    <p>Github Profile: <a href="https://github.com/${engineer.github}">${engineer.github}</a></p>
 </div>
 `
 };
@@ -62,10 +62,12 @@ function createHTML(objectArray, objectCount) {
     let contentHTML = [];
     contentHTML.push(startHTML());
     contentHTML.push(managerCard(objectArray[0]));
-    for (let i = 1; i < objectCount[0]+1; i++) {
+    const internEnd = objectCount[0]+1;
+    const engineerEnd = objectCount[0]+objectCount[1]+1;
+    for (let i = 1; i < internEnd; i++) {
         contentHTML.push(internCard(objectArray[i]));
     };
-    for (let i = 1+objectArray[0]; i < objectCount[0]+objectCount[1]+1; i++) {
+    for (let i = internEnd; i < engineerEnd; i++) {
         contentHTML.push(engineerCard(objectArray[i]));
     };
     contentHTML.push(endHTML());

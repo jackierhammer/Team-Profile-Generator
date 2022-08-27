@@ -1,0 +1,32 @@
+* {
+    background-color: blanchedalmond;
+    font-size: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: crimson;
+}
+
+.title-card {
+    font-size: 80px;
+    text-align: center;
+    border-style: groove;
+    border-color: crimson;
+    border-width: 15px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    border-style: groove;
+    border-color: crimson;
+    border-width: 10px;
+    margin: 20px;
+    padding: 20px;
+}
